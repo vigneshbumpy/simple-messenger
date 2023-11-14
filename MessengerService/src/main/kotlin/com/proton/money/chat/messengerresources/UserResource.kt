@@ -1,4 +1,4 @@
-package com.proton.money.chat.resources
+package com.proton.money.chat.messengerresources
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
