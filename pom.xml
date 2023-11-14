@@ -6,8 +6,8 @@
 
     <artifactId>SimpleMessenger</artifactId>
     <modules>
-        <module>MessengerService</module>
         <module>MessengerCore</module>
+        <module>MessengerService</module>
     </modules>
     <groupId>com.chat</groupId>
     <version>1.0-SNAPSHOT</version>
@@ -97,6 +97,24 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.4</version>
+        </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.chat</groupId>
+                <artifactId>MessengerCore</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
