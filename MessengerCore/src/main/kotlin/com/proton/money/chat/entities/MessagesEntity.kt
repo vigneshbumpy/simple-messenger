@@ -15,9 +15,9 @@ import javax.persistence.*
  * @constructor Create empty Messages
  */
 @Entity
-@Table(name= "Messages")
+@Table(name = "Messages")
 @AllArgsConstructor
-class Messages (
+class Messages(
     //mark id as primary key
     @Id //defining id as column name
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,7 @@
 package com.proton.money.chat.messengerresources
 
+import com.proton.money.chat.models.ResponseObject
 import com.proton.money.chat.models.UserRequest
-import com.proton.money.chat.response.SuccessResponseWithoutMessage
 import com.proton.money.chat.service.UserService
 import lombok.AllArgsConstructor
 import org.springframework.web.bind.annotation.*
@@ -24,19 +24,8 @@ class UserResource(private val userService: UserService) {
      * @return
      */
     @GetMapping("/getAll")
-    fun getAllUser(): SuccessResponseWithoutMessage {
+    fun getAllUser(): ResponseObject {
         return userService.getAllUsers()
-    }
-
-    /**
-     * Get password
-     *
-     * @param userName
-     * @return
-     */
-    @GetMapping("/getPassword/{userName}")
-    fun getPassword(@PathVariable userName: String): String {
-        return userService.getPassword(userName)?: "Username not available"
     }
 
     /**
@@ -45,9 +34,17 @@ class UserResource(private val userService: UserService) {
      * @param userRequest
      * @return
      */
-    @PostMapping( "/login", consumes = arrayOf("application/json"), produces = arrayOf("application/json"))
+    @PostMapping("/login", consumes = arrayOf("application/json"), produces = arrayOf("application/json"))
     @ResponseBody
-    fun userLogin(@RequestBody userRequest: UserRequest): Any {
+    fun userLogin(@RequestBody userRequest: UserRequest): ResponseObject {
+
+        if (userRequest.userName.isEmpty()) {
+            throw IllegalArgumentException("Username cannot be Empty")
+        }
+
+        if (userRequest.passcode.isEmpty()) {
+            throw IllegalArgumentException("Passcode cannot be Empty")
+        }
         return userService.logInUser(userRequest.userName, userRequest.passcode)
     }
 
@@ -57,10 +54,13 @@ class UserResource(private val userService: UserService) {
      * @param userRequest
      * @return
      */
-    @PostMapping( "/logout", consumes = arrayOf("application/json"), produces = arrayOf("application/json"))
+    @PostMapping("/logout", consumes = arrayOf("application/json"), produces = arrayOf("application/json"))
     @ResponseBody
-    fun logoutUser(@RequestBody userRequest: UserRequest): Any {
-        return userService.logoutUser(userRequest.userName)
+    fun logoutUser(@RequestBody userName: String): ResponseObject {
+        if (userName.isEmpty()) {
+            throw IllegalArgumentException("Username cannot be Empty")
+        }
+        return userService.logoutUser(userName)
     }
 
     /**
@@ -69,9 +69,16 @@ class UserResource(private val userService: UserService) {
      * @param userRequest
      * @return
      */
-    @PostMapping( "/create/user", consumes = arrayOf("application/json"), produces = arrayOf("application/json"))
+    @PostMapping("/create/user", consumes = arrayOf("application/json"), produces = arrayOf("application/json"))
     @ResponseBody
-    fun createUser(@RequestBody userRequest: UserRequest): Any {
+    fun createUser(@RequestBody userRequest: UserRequest): ResponseObject {
+        if (userRequest.userName.isEmpty()) {
+            throw IllegalArgumentException("Username cannot be Empty")
+        }
+
+        if (userRequest.passcode.isEmpty()) {
+            throw IllegalArgumentException("Passcode cannot be Empty")
+        }
         return userService.createUser(userRequest.userName, userRequest.passcode)
     }
 }

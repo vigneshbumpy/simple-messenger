@@ -12,9 +12,9 @@ import javax.persistence.*
  * @constructor Create empty Users
  */
 @Entity
-@Table(name= "Users")
+@Table(name = "Users")
 @AllArgsConstructor
-class Users (
+class Users(
     //mark id as primary key
     @Id //defining id as column name
     @GeneratedValue(strategy = GenerationType.IDENTITY)

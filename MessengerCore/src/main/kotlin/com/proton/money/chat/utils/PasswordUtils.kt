@@ -2,8 +2,6 @@ package com.proton.money.chat.utils
 
 import org.springframework.stereotype.Component
 import java.util.*
-import javax.crypto.Cipher
-import javax.crypto.SecretKey
 
 
 /**
@@ -35,7 +33,7 @@ class PasswordUtils {
      * @return
      */
     @Throws(Exception::class)
-    fun decode(encryptedText: String?): String? {
+    fun decode(encryptedText: String?): String {
         val decoder: Base64.Decoder = Base64.getDecoder()
         val encryptedTextByte: ByteArray = decoder.decode(encryptedText)
         return String(encryptedTextByte)

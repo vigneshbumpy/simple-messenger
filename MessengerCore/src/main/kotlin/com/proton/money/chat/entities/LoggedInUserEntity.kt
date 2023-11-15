@@ -11,9 +11,9 @@ import javax.persistence.*
  * @constructor Create empty Logged in user
  */
 @Entity
-@Table(name= "LoggedInUsers")
+@Table(name = "LoggedInUsers")
 @AllArgsConstructor
-class LoggedInUser (
+class LoggedInUser(
     //mark id as primary key
     @Id //defining id as column name
     @GeneratedValue(strategy = GenerationType.IDENTITY)
