@@ -1,12 +1,9 @@
 package com.proton.money.chat.repo
 
 import com.proton.money.chat.entities.LoggedInUser
-import com.proton.money.chat.entities.Users
 import lombok.AllArgsConstructor
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import javax.jws.soap.SOAPBinding.Use
-import javax.transaction.Transactional
 
 /**
  * Logged in user repository
@@ -16,7 +13,7 @@ import javax.transaction.Transactional
  */
 @Repository
 @AllArgsConstructor
-interface  LoggedInUserRepository : JpaRepository<LoggedInUser, Int>{
+interface LoggedInUserRepository : JpaRepository<LoggedInUser, Int> {
 
     /**
      * Find users by user name
