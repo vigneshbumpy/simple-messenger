@@ -7,7 +7,7 @@ RUN mkdir /opt/maven
 RUN mkdir /usr/share/maven
 #RUN mkdir /usr/share/maven
 #dwnl maven using link in tmp
-RUN wget https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz -O /tmp/maven.tar.gz
+RUN wget https://downloads.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz   -O /tmp/maven.tar.gz
 #extract the file
 RUN cd /tmp && tar xvf maven.tar.gz
 #copy the file into opt/maven

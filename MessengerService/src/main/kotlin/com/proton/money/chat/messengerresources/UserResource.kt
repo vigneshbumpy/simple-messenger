@@ -23,7 +23,7 @@ class UserResource(private val userService: UserService) {
      *
      * @return
      */
-    @GetMapping("/getAll")
+    @GetMapping("/get/users")
     fun getAllUser(): ResponseObject {
         return userService.getAllUsers()
     }
@@ -54,9 +54,9 @@ class UserResource(private val userService: UserService) {
      * @param userRequest
      * @return
      */
-    @PostMapping("/logout", consumes = arrayOf("application/json"), produces = arrayOf("application/json"))
+    @PostMapping("/logout/{username}", consumes = arrayOf("application/json"), produces = arrayOf("application/json"))
     @ResponseBody
-    fun logoutUser(@RequestBody userName: String): ResponseObject {
+    fun logoutUser(@PathVariable userName: String): ResponseObject {
         if (userName.isEmpty()) {
             throw IllegalArgumentException("Username cannot be Empty")
         }
