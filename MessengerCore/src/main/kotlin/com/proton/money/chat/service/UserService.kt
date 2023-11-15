@@ -12,6 +12,16 @@ import com.proton.money.chat.utils.PasswordUtils
 import lombok.AllArgsConstructor
 import org.springframework.stereotype.Service
 
+/**
+ * User service
+ *
+ * This service takes care of the user life cycle management
+ *
+ * @property userRepository
+ * @property loggedInUserRepository
+ * @property passwordUtils
+ * @constructor Create empty User service
+ */
 @Service
 @AllArgsConstructor
 class UserService(
@@ -20,6 +30,13 @@ class UserService(
     private val passwordUtils: PasswordUtils
 ){
 
+    /**
+     * Log in user
+     *
+     * @param userName
+     * @param password
+     * @return
+     */
     fun logInUser(userName: String, password: String): Any {
         val userData = userRepository.findUsersByUserName(userName)
         val userLoggedInData = loggedInUserRepository.findUsersByUserName(userName)
@@ -39,6 +56,14 @@ class UserService(
         )
         return SuccessResponse()
     }
+
+    /**
+     * Create user
+     *
+     * @param userName
+     * @param password
+     * @return
+     */
     fun createUser(userName: String, password: String): Any {
 
         if(userRepository.findUsersByUserName(userName) != null) {
@@ -56,13 +81,31 @@ class UserService(
         return SuccessResponse()
     }
 
+    /**
+     * Get password
+     *
+     * @param userName
+     * @return
+     */
     fun getPassword(userName: String): String? {
         return passwordUtils.decode(userRepository.findUsersByUserName(userName)?.password)
     }
+
+    /**
+     * Get all users
+     *
+     * @return
+     */
     fun getAllUsers(): SuccessResponseWithoutMessage {
         return SuccessResponseWithoutMessage(data = userRepository.findAllUsers())
     }
 
+    /**
+     * Logout user
+     *
+     * @param userName
+     * @return
+     */
     fun logoutUser(userName: String): Any {
         val userData = userRepository.findUsersByUserName(userName)
         val userLoggedInData = loggedInUserRepository.findUsersByUserName(userName)
