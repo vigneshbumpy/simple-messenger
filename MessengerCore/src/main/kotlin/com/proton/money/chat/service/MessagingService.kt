@@ -9,11 +9,24 @@ import com.proton.money.chat.response.SuccessResponseWithMessage
 import lombok.AllArgsConstructor
 import org.springframework.stereotype.Service
 
+/**
+ * Messaging service
+ *
+ * This services takes care of all the request/response lifecycle of all the messages
+ * @property messageRepository
+ * @constructor Create empty Messaging service
+ */
 @Service
 @AllArgsConstructor
 class MessagingService(
     private val messageRepository: MessageRepository
 ) {
+    /**
+     * Get all unread messages for the user
+     *
+     * @param userName
+     * @return
+     */
     fun getAllUnreadMessagesForTheUser(userName:String): Any {
         val listOfUnreadMessages = messageRepository.getByToUserNameAndIsRead(toUserName = userName, isRead = false)
         if (listOfUnreadMessages.isNullOrEmpty()) {
@@ -30,6 +43,14 @@ class MessagingService(
         }
         return SuccessResponseWithMessage(message = "You have message(s)", data = listOfResponse)
     }
+
+    /**
+     * Get all message for user
+     *
+     * @param friend
+     * @param user
+     * @return
+     */
     fun getAllMessageForUser(friend:String, user: String): Any {
         val allMessages = mutableListOf<Messages>()
         allMessages.addAll(messageRepository.getByFromUserNameAndToUserName(fromUserName = friend, toUserName = user) ?: emptyList())
@@ -50,6 +71,13 @@ class MessagingService(
         }
         return SuccessResponseWithMessage(message = "You have message(s)", data = listOfResponse)
     }
+
+    /**
+     * Save message
+     *
+     * @param sendMessageRequest
+     * @return
+     */
     fun saveMessage(sendMessageRequest: SendMessageRequest): Any {
         messageRepository.save(
             Messages (

@@ -3,6 +3,13 @@ package com.proton.money.chat.entities
 import lombok.AllArgsConstructor
 import javax.persistence.*
 
+/**
+ * Logged in user Table Entity
+ *
+ * @property id - Auto incremented id
+ * @property userName - Logged in user names
+ * @constructor Create empty Logged in user
+ */
 @Entity
 @Table(name= "LoggedInUsers")
 @AllArgsConstructor
