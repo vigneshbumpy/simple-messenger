@@ -1,4 +1,4 @@
-package com.proton.money.chat.com.proton.money.chat.messengerresources
+package com.proton.money.chat.messengerresources
 
 import com.proton.money.chat.models.ResponseObject
 import com.proton.money.chat.models.SendMessageHistoryRequest
