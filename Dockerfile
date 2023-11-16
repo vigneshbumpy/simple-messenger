@@ -22,10 +22,8 @@ FROM maven:3.8.6-openjdk-8 AS maven
 
 COPY . .
 
-RUN mvn install -X
-
-COPY */MessengerService.jar app.jar
+RUN mvn package -X
 
 EXPOSE 8081
 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "/MessengerService/target/MessengerService.jar"]
