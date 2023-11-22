@@ -52,6 +52,10 @@ data class SendMessageHistoryRequest(
     val friend: String,
     val user: String
 )
+data class BlockUserRequest(
+    val userName: String,
+    val blockUserName: String
+)
 
 /**
  * Response object

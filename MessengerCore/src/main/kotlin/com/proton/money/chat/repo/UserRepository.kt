@@ -3,8 +3,10 @@ package com.proton.money.chat.repo
 import com.proton.money.chat.entities.Users
 import lombok.AllArgsConstructor
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
 
 /**
@@ -32,4 +34,11 @@ interface UserRepository : JpaRepository<Users, Int> {
      */
     @Query("SELECT distinct userName FROM Users")
     fun findAllUsers(): List<String>
+
+    @Transactional
+    @Modifying
+    @Query("update Users set blocked_user = blockedUser where  user_name = userName")
+    fun updateBlockedUserForUser(blockedUser: String, userName: String)
+
+
 }

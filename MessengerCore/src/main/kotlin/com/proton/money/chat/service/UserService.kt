@@ -103,4 +103,18 @@ class UserService(
         loggedInUserRepository.deleteByUserName(userName)
         return ResponseObject()
     }
+
+    fun blockUser(userName: String, blockingUserName: String): ResponseObject {
+        val currentUserState = userRepository.findUsersByUserName(userName)
+        val blockedUserUpdated = if (currentUserState?.blockedUser != null) {
+            currentUserState.blockedUser + ",$blockingUserName"
+        } else {
+            blockingUserName
+        }
+        currentUserState?.blockedUser = blockedUserUpdated
+        if (currentUserState != null) {
+            userRepository.save(currentUserState)
+        }
+        return ResponseObject()
+    }
 }

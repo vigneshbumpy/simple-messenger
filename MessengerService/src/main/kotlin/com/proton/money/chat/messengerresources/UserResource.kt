@@ -1,5 +1,6 @@
 package com.proton.money.chat.messengerresources
 
+import com.proton.money.chat.models.BlockUserRequest
 import com.proton.money.chat.models.ResponseObject
 import com.proton.money.chat.models.UserRequest
 import com.proton.money.chat.service.UserService
@@ -80,5 +81,13 @@ class UserResource(private val userService: UserService) {
             throw IllegalArgumentException("Passcode cannot be Empty")
         }
         return userService.createUser(userRequest.userName, userRequest.passcode)
+    }
+    @PostMapping("/block/user", consumes = arrayOf("application/json"), produces = arrayOf("application/json"))
+    @ResponseBody
+    fun createUser(@RequestBody blockUserRequest: BlockUserRequest): ResponseObject {
+        if (blockUserRequest.userName.isEmpty()) {
+            throw IllegalArgumentException("Username cannot be Empty")
+        }
+        return userService.blockUser(blockUserRequest.userName, blockUserRequest.blockUserName)
     }
 }

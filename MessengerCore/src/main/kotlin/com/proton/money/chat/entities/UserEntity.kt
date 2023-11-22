@@ -26,5 +26,9 @@ class Users(
 
     //defining password as column name
     @Column(nullable = false)
-    val password: String? = null
+    val password: String? = null,
+
+    //defining password as column name
+    @Column
+    var blockedUser: String? = null
 )

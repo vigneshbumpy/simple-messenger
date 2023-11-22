@@ -105,7 +105,8 @@ class MessagingService(
      * @return
      */
     fun saveMessage(sendMessageRequest: SendMessageRequest): ResponseObject {
-        if (userRepository.findUsersByUserName(sendMessageRequest.fromUserName) == null) {
+        val frmUserInfo = userRepository.findUsersByUserName(sendMessageRequest.fromUserName)
+        if (frmUserInfo == null) {
             return ResponseObject(status = "failure", message = "User does not exists")
         }
         if (userRepository.findUsersByUserName(sendMessageRequest.toUserName) == null) {
@@ -113,6 +114,10 @@ class MessagingService(
         }
         if (loggedInUserRepository.findUsersByUserName(sendMessageRequest.fromUserName) == null) {
             return ResponseObject(status = "failure", message = "User not logged in")
+        }
+        val listOfBlockedUsers = frmUserInfo.blockedUser?.split(',') ?: emptyList()
+        if (!listOfBlockedUsers.isEmpty() && listOfBlockedUsers.contains(sendMessageRequest.toUserName)) {
+            return ResponseObject(status = "failure", message = "User is blocked")
         }
         messageRepository.save(
             Messages(
